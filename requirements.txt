@@ -1,0 +1,12 @@
+einops
+numpy
+pandas
+Pillow
+scikit-learn
+scipy
+torch
+torchaudio
+torchvision
+tornado
+tqdm
+

@@ -1,0 +1,543 @@
+Args in experiment:
+Namespace(is_training=1, model='PathFormer', model_id='finance_axisbank_48_48', data='custom', root_path='./dataset/finance', data_path='AXISBANK.csv', features='MS', target='Close', freq='d', checkpoints='./checkpoints/', seq_len=48, pred_len=48, individual=False, d_model=8, d_ff=64, num_nodes=9, layer_nums=3, k=2, num_experts_list=[4, 4, 4], patch_size_list=[[16, 12, 8, 4], [12, 8, 6, 4], [8, 6, 2, 12]], do_predict=False, revin=1, drop=0.1, embed='timeF', residual_connection=1, metric='mae', batch_norm=0, num_workers=10, itr=1, train_epochs=30, batch_size=32, patience=10, learning_rate=0.001, lradj='TST', use_amp=False, pct_start=0.4, use_gpu=False, gpu=0, use_multi_gpu=False, devices='2', test_flop=False)
+Use CPU
+>>>>>>>start training : finance_axisbank_48_48_PathFormer_AXISBANK_ftMS_sl48_pl48_0>>>>>>>>>>>>>>>>>>>>>>>>>>
+Args in experiment:
+Namespace(is_training=1, model='PathFormer', model_id='finance_axisbank_48_48', data='custom', root_path='./dataset/finance', data_path='AXISBANK.csv', features='MS', target='Close', freq='d', checkpoints='./checkpoints/', seq_len=48, pred_len=48, individual=False, d_model=8, d_ff=64, num_nodes=9, layer_nums=3, k=2, num_experts_list=[4, 4, 4], patch_size_list=[[16, 12, 8, 4], [12, 8, 6, 4], [8, 6, 2, 12]], do_predict=False, revin=1, drop=0.1, embed='timeF', residual_connection=1, metric='mae', batch_norm=0, num_workers=10, itr=1, train_epochs=30, batch_size=32, patience=10, learning_rate=0.001, lradj='TST', use_amp=False, pct_start=0.4, use_gpu=False, gpu=0, use_multi_gpu=False, devices='2', test_flop=False)
+Use CPU
+>>>>>>>start training : finance_axisbank_48_48_PathFormer_AXISBANK_ftMS_sl48_pl48_0>>>>>>>>>>>>>>>>>>>>>>>>>>
+ DATA LOADED FROM DATA_LOADER 
+          date  Prev Close  Open   High  ...   VWAP  Volume      Turnover  Close
+0  03-01-2000       24.70  26.7  26.70  ...  26.70  112100  2.993070e+11  26.70
+1  04-01-2000       26.70  27.0  28.70  ...  27.24  234500  6.387280e+11  26.85
+2  05-01-2000       26.85  26.0  27.75  ...  26.24  170100  4.462980e+11  26.30
+3  06-01-2000       26.30  25.8  27.00  ...  26.27  102100  2.681730e+11  25.95
+4  07-01-2000       25.95  25.0  26.00  ...  25.04   62600  1.567220e+11  24.80
+
+[5 rows x 10 columns]
+after adjusting cols 
+      Prev Close   Open    High  ...    Volume      Turnover    Close
+0          24.70   26.7   26.70  ...    112100  2.993070e+11    26.70
+1          26.70   27.0   28.70  ...    234500  6.387280e+11    26.85
+2          26.85   26.0   27.75  ...    170100  4.462980e+11    26.30
+3          26.30   25.8   27.00  ...    102100  2.681730e+11    25.95
+4          25.95   25.0   26.00  ...     62600  1.567220e+11    24.80
+...          ...    ...     ...  ...       ...           ...      ...
+5301      671.35  694.0  703.80  ...  21646184  1.505120e+15  3502.25
+5302      700.45  691.1  703.90  ...  46559967  3.225830e+15  3497.75
+5303      699.55  708.0  712.50  ...  54060587  3.794630e+15  3540.75
+5304      708.15  712.0  726.90  ...  25939327  1.860920e+15  3597.00
+5305      719.40  705.0  729.85  ...  23011654  1.655360e+15  3574.50
+
+[5306 rows x 9 columns]
+after scaling the data 
+ [[-1.10482937 -1.10267923 -1.10741852 ... -0.76635311 -0.77244865
+  -1.08326001]
+ [-1.1009608  -1.10209879 -1.10360552 ... -0.68199587 -0.77000647
+  -1.08299059]
+ [-1.10067066 -1.10403359 -1.1054167  ... -0.72637991 -0.77139103
+  -1.08397847]
+ ...
+ [ 0.20052461  0.21550463  0.20005723 ... 36.41457519 26.52829757
+   5.22849448]
+ [ 0.21715948  0.22324386  0.22751079 ... 17.03359511 12.61498051
+   5.32952781]
+ [ 0.23892022  0.20970021  0.23313496 ... 15.0158629  11.13594722
+   5.28911448]]
+3714
+train 3619
+x data after scaling 
+[[-1.10482937 -1.10267923 -1.10741852 ... -0.76635311 -0.77244865
+  -1.08326001]
+ [-1.1009608  -1.10209879 -1.10360552 ... -0.68199587 -0.77000647
+  -1.08299059]
+ [-1.10067066 -1.10403359 -1.1054167  ... -0.72637991 -0.77139103
+  -1.08397847]
+ ...
+ [-0.24310425 -0.24304458 -0.25902728 ...  0.88680143  0.06630837
+   3.05964556]
+ [-0.24997097 -0.2498164  -0.23843711 ...  2.42405712  0.85470881
+   3.15214719]
+ [-0.23004781 -0.22756612 -0.23834179 ...  1.61190362  0.4536804
+   3.16292408]]
+len of sample data 9
+
+3714
+3714
+ DATA LOADED FROM DATA_LOADER 
+          date  Prev Close  Open   High  ...   VWAP  Volume      Turnover  Close
+0  03-01-2000       24.70  26.7  26.70  ...  26.70  112100  2.993070e+11  26.70
+1  04-01-2000       26.70  27.0  28.70  ...  27.24  234500  6.387280e+11  26.85
+2  05-01-2000       26.85  26.0  27.75  ...  26.24  170100  4.462980e+11  26.30
+3  06-01-2000       26.30  25.8  27.00  ...  26.27  102100  2.681730e+11  25.95
+4  07-01-2000       25.95  25.0  26.00  ...  25.04   62600  1.567220e+11  24.80
+
+[5 rows x 10 columns]
+after adjusting cols 
+      Prev Close   Open    High  ...    Volume      Turnover    Close
+0          24.70   26.7   26.70  ...    112100  2.993070e+11    26.70
+1          26.70   27.0   28.70  ...    234500  6.387280e+11    26.85
+2          26.85   26.0   27.75  ...    170100  4.462980e+11    26.30
+3          26.30   25.8   27.00  ...    102100  2.681730e+11    25.95
+4          25.95   25.0   26.00  ...     62600  1.567220e+11    24.80
+...          ...    ...     ...  ...       ...           ...      ...
+5301      671.35  694.0  703.80  ...  21646184  1.505120e+15  3502.25
+5302      700.45  691.1  703.90  ...  46559967  3.225830e+15  3497.75
+5303      699.55  708.0  712.50  ...  54060587  3.794630e+15  3540.75
+5304      708.15  712.0  726.90  ...  25939327  1.860920e+15  3597.00
+5305      719.40  705.0  729.85  ...  23011654  1.655360e+15  3574.50
+
+[5306 rows x 9 columns]
+after scaling the data 
+ [[-1.10482937 -1.10267923 -1.10741852 ... -0.76635311 -0.77244865
+  -1.08326001]
+ [-1.1009608  -1.10209879 -1.10360552 ... -0.68199587 -0.77000647
+  -1.08299059]
+ [-1.10067066 -1.10403359 -1.1054167  ... -0.72637991 -0.77139103
+  -1.08397847]
+ ...
+ [ 0.20052461  0.21550463  0.20005723 ... 36.41457519 26.52829757
+   5.22849448]
+ [ 0.21715948  0.22324386  0.22751079 ... 17.03359511 12.61498051
+   5.32952781]
+ [ 0.23892022  0.20970021  0.23313496 ... 15.0158629  11.13594722
+   5.28911448]]
+579
+val 484
+x data after scaling 
+[[-0.33875477 -0.34036536 -0.35378019 ...  0.54475487 -0.16801292
+   2.62901903]
+ [-0.34272006 -0.34365453 -0.35949968 ...  0.22793553 -0.30898301
+   2.6092614 ]
+ [-0.34697549 -0.34481541 -0.3503485  ...  1.16930033  0.10708324
+   2.62722289]
+ ...
+ [-0.28730272 -0.28009613 -0.28600422 ...  3.0696595   1.07606733
+   2.94244689]
+ [-0.27521342 -0.27554933 -0.2786642  ...  2.67564432  0.90413223
+   2.95681608]
+ [-0.27211856 -0.27013187 -0.25235454 ...  7.90466862  3.51183858
+   3.11487712]]
+len of sample data 9
+
+579
+579
+ DATA LOADED FROM DATA_LOADER 
+          date  Prev Close  Open   High  ...   VWAP  Volume      Turnover  Close
+0  03-01-2000       24.70  26.7  26.70  ...  26.70  112100  2.993070e+11  26.70
+1  04-01-2000       26.70  27.0  28.70  ...  27.24  234500  6.387280e+11  26.85
+2  05-01-2000       26.85  26.0  27.75  ...  26.24  170100  4.462980e+11  26.30
+3  06-01-2000       26.30  25.8  27.00  ...  26.27  102100  2.681730e+11  25.95
+4  07-01-2000       25.95  25.0  26.00  ...  25.04   62600  1.567220e+11  24.80
+
+[5 rows x 10 columns]
+after adjusting cols 
+      Prev Close   Open    High  ...    Volume      Turnover    Close
+0          24.70   26.7   26.70  ...    112100  2.993070e+11    26.70
+1          26.70   27.0   28.70  ...    234500  6.387280e+11    26.85
+2          26.85   26.0   27.75  ...    170100  4.462980e+11    26.30
+3          26.30   25.8   27.00  ...    102100  2.681730e+11    25.95
+4          25.95   25.0   26.00  ...     62600  1.567220e+11    24.80
+...          ...    ...     ...  ...       ...           ...      ...
+5301      671.35  694.0  703.80  ...  21646184  1.505120e+15  3502.25
+5302      700.45  691.1  703.90  ...  46559967  3.225830e+15  3497.75
+5303      699.55  708.0  712.50  ...  54060587  3.794630e+15  3540.75
+5304      708.15  712.0  726.90  ...  25939327  1.860920e+15  3597.00
+5305      719.40  705.0  729.85  ...  23011654  1.655360e+15  3574.50
+
+[5306 rows x 9 columns]
+after scaling the data 
+ [[-1.10482937 -1.10267923 -1.10741852 ... -0.76635311 -0.77244865
+  -1.08326001]
+ [-1.1009608  -1.10209879 -1.10360552 ... -0.68199587 -0.77000647
+  -1.08299059]
+ [-1.10067066 -1.10403359 -1.1054167  ... -0.72637991 -0.77139103
+  -1.08397847]
+ ...
+ [ 0.20052461  0.21550463  0.20005723 ... 36.41457519 26.52829757
+   5.22849448]
+ [ 0.21715948  0.22324386  0.22751079 ... 17.03359511 12.61498051
+   5.32952781]
+ [ 0.23892022  0.20970021  0.23313496 ... 15.0158629  11.13594722
+   5.28911448]]
+1109
+test 1014
+x data after scaling 
+[[-0.21370308 -0.21199093 -0.21946747 ...  4.298147    1.84899821
+   3.27697949]
+ [-0.20316121 -0.26626226 -0.21660772 ...  7.99526995  3.66648376
+   3.24734304]
+ [-0.20954436 -0.19854402 -0.17914505 ...  7.0362494   3.3896435
+   3.42156942]
+ ...
+ [ 0.20052461  0.21550463  0.20005723 ... 36.41457519 26.52829757
+   5.22849448]
+ [ 0.21715948  0.22324386  0.22751079 ... 17.03359511 12.61498051
+   5.32952781]
+ [ 0.23892022  0.20970021  0.23313496 ... 15.0158629  11.13594722
+   5.28911448]]
+len of sample data 9
+
+3714
+3714
+3714
+3714
+	iters: 100, epoch: 1 | loss: 0.1696513
+	speed: 1.2124s/iter; left time: 3989.9881s
+Epoch: 1 cost time: 132.0773422718048
+579
+579
+579
+1109
+Epoch: 1, Steps: 113 | Train Loss: 0.2022425 Vali Loss: 0.4711519 Test Loss: 0.5448627
+Validation loss decreased (inf --> 0.471152).  Saving model ...
+Updating learning rate to 5.6379615105460554e-05
+3714
+3714
+3714
+	iters: 100, epoch: 2 | loss: 0.1409940
+	speed: 2.2176s/iter; left time: 7047.6814s
+Epoch: 2 cost time: 145.80668807029724
+579
+579
+579
+1109
+Epoch: 2, Steps: 113 | Train Loss: 0.1505903 Vali Loss: 0.4086346 Test Loss: 0.4633788
+Validation loss decreased (0.471152 --> 0.408635).  Saving model ...
+Updating learning rate to 0.00010440057795932974
+3714
+3714
+3714
+	iters: 100, epoch: 3 | loss: 0.1265398
+	speed: 2.9057s/iter; left time: 8905.9676s
+Epoch: 3 cost time: 152.3387908935547
+579
+579
+579
+1109
+Epoch: 3, Steps: 113 | Train Loss: 0.1320905 Vali Loss: 0.3753701 Test Loss: 0.4227696
+Validation loss decreased (0.408635 --> 0.375370).  Saving model ...
+Updating learning rate to 0.00018078553485935747
+3714
+3714
+3714
+	iters: 100, epoch: 4 | loss: 0.0937803
+	speed: 2.5418s/iter; left time: 7503.3142s
+Epoch: 4 cost time: 147.99454021453857
+579
+579
+579
+1109
+Epoch: 4, Steps: 113 | Train Loss: 0.1226923 Vali Loss: 0.3642161 Test Loss: 0.4070733
+Validation loss decreased (0.375370 --> 0.364216).  Saving model ...
+Updating learning rate to 0.00028032133499775354
+3714
+3714
+3714
+	iters: 100, epoch: 5 | loss: 0.0990106
+	speed: 2.4250s/iter; left time: 6884.6720s
+Epoch: 5 cost time: 145.3558087348938
+579
+579
+579
+1109
+Epoch: 5, Steps: 113 | Train Loss: 0.1164677 Vali Loss: 0.3543725 Test Loss: 0.3970010
+Validation loss decreased (0.364216 --> 0.354372).  Saving model ...
+Updating learning rate to 0.0003962148196433472
+3714
+3714
+3714
+	iters: 100, epoch: 6 | loss: 0.0954278
+	speed: 2.4232s/iter; left time: 6605.6937s
+Epoch: 6 cost time: 139.79424357414246
+579
+579
+579
+1109
+Epoch: 6, Steps: 113 | Train Loss: 0.1134134 Vali Loss: 0.3464963 Test Loss: 0.3906420
+Validation loss decreased (0.354372 --> 0.346496).  Saving model ...
+Updating learning rate to 0.0005205564443306158
+3714
+3714
+3714
+	iters: 100, epoch: 7 | loss: 0.1168261
+	speed: 2.9909s/iter; left time: 7815.2892s
+Epoch: 7 cost time: 161.28900265693665
+579
+579
+579
+1109
+Epoch: 7, Steps: 113 | Train Loss: 0.1112297 Vali Loss: 0.3418072 Test Loss: 0.3879645
+Validation loss decreased (0.346496 --> 0.341807).  Saving model ...
+Updating learning rate to 0.0006448600925847048
+3714
+3714
+3714
+	iters: 100, epoch: 8 | loss: 0.0915748
+	speed: 2.6255s/iter; left time: 6563.8622s
+Epoch: 8 cost time: 153.7996120452881
+579
+579
+579
+1109
+Epoch: 8, Steps: 113 | Train Loss: 0.1096193 Vali Loss: 0.3352779 Test Loss: 0.3881188
+Validation loss decreased (0.341807 --> 0.335278).  Saving model ...
+Updating learning rate to 0.0007606422397614203
+3714
+3714
+3714
+	iters: 100, epoch: 9 | loss: 0.0737231
+	speed: 3.0930s/iter; left time: 7382.9219s
+Epoch: 9 cost time: 131.70800590515137
+579
+579
+579
+1109
+Epoch: 9, Steps: 113 | Train Loss: 0.1082460 Vali Loss: 0.3369752 Test Loss: 0.3849937
+EarlyStopping counter: 1 out of 10
+Updating learning rate to 0.0008600009399989359
+3714
+3714
+3714
+	iters: 100, epoch: 10 | loss: 0.0861522
+	speed: 2.1498s/iter; left time: 4888.6820s
+Epoch: 10 cost time: 132.79031562805176
+579
+579
+579
+1109
+Epoch: 10, Steps: 113 | Train Loss: 0.1076308 Vali Loss: 0.3334368 Test Loss: 0.3876266
+Validation loss decreased (0.335278 --> 0.333437).  Saving model ...
+Updating learning rate to 0.0009361551213502956
+3714
+3714
+3714
+	iters: 100, epoch: 11 | loss: 0.1163605
+	speed: 2.6675s/iter; left time: 5764.4253s
+Epoch: 11 cost time: 173.08335256576538
+579
+579
+579
+1109
+Epoch: 11, Steps: 113 | Train Loss: 0.1070775 Vali Loss: 0.3386972 Test Loss: 0.3804190
+EarlyStopping counter: 1 out of 10
+Updating learning rate to 0.000983907383068805
+3714
+3714
+3714
+	iters: 100, epoch: 12 | loss: 0.0904076
+	speed: 3.0627s/iter; left time: 6272.4791s
+Epoch: 12 cost time: 194.32049250602722
+579
+579
+579
+1109
+Epoch: 12, Steps: 113 | Train Loss: 0.1065892 Vali Loss: 0.3534249 Test Loss: 0.3921948
+EarlyStopping counter: 2 out of 10
+Updating learning rate to 0.000999999403602199
+3714
+3714
+3714
+	iters: 100, epoch: 13 | loss: 0.0825491
+	speed: 3.7992s/iter; left time: 7351.5329s
+Epoch: 13 cost time: 258.78496742248535
+579
+579
+579
+1109
+Epoch: 13, Steps: 113 | Train Loss: 0.1053109 Vali Loss: 0.3271227 Test Loss: 0.3929357
+Validation loss decreased (0.333437 --> 0.327123).  Saving model ...
+Updating learning rate to 0.0009922692169378256
+3714
+3714
+3714
+	iters: 100, epoch: 14 | loss: 0.1082027
+	speed: 5.6089s/iter; left time: 10219.4996s
+Epoch: 14 cost time: 370.30247473716736
+579
+579
+579
+1109
+Epoch: 14, Steps: 113 | Train Loss: 0.1046529 Vali Loss: 0.3376277 Test Loss: 0.3911604
+EarlyStopping counter: 1 out of 10
+Updating learning rate to 0.000969581739986027
+3714
+3714
+3714
+	iters: 100, epoch: 15 | loss: 0.0880937
+	speed: 6.4479s/iter; left time: 11019.5071s
+Epoch: 15 cost time: 380.18039727211
+579
+579
+579
+1109
+Epoch: 15, Steps: 113 | Train Loss: 0.1047435 Vali Loss: 0.3404269 Test Loss: 0.3896759
+EarlyStopping counter: 2 out of 10
+Updating learning rate to 0.0009326263202535669
+3714
+3714
+3714
+	iters: 100, epoch: 16 | loss: 0.0900351
+	speed: 4.5274s/iter; left time: 7225.7090s
+Epoch: 16 cost time: 253.7165389060974
+579
+579
+579
+1109
+Epoch: 16, Steps: 113 | Train Loss: 0.1036907 Vali Loss: 0.3305843 Test Loss: 0.3841328
+EarlyStopping counter: 3 out of 10
+Updating learning rate to 0.0008825258294686714
+3714
+3714
+3714
+	iters: 100, epoch: 17 | loss: 0.1250036
+	speed: 3.4411s/iter; left time: 5103.2185s
+Epoch: 17 cost time: 203.22092032432556
+579
+579
+579
+1109
+Epoch: 17, Steps: 113 | Train Loss: 0.1036108 Vali Loss: 0.3288717 Test Loss: 0.3963348
+EarlyStopping counter: 4 out of 10
+Updating learning rate to 0.0008208025456917675
+3714
+3714
+3714
+	iters: 100, epoch: 18 | loss: 0.1058222
+	speed: 2.6815s/iter; left time: 3673.6061s
+Epoch: 18 cost time: 172.19601440429688
+579
+579
+579
+1109
+Epoch: 18, Steps: 113 | Train Loss: 0.1023385 Vali Loss: 0.3338145 Test Loss: 0.3905689
+EarlyStopping counter: 5 out of 10
+Updating learning rate to 0.0007493318996669281
+3714
+3714
+3714
+	iters: 100, epoch: 19 | loss: 0.1102243
+	speed: 2.5979s/iter; left time: 3265.5387s
+Epoch: 19 cost time: 98.76141238212585
+579
+579
+579
+1109
+Epoch: 19, Steps: 113 | Train Loss: 0.1017718 Vali Loss: 0.3399355 Test Loss: 0.3916027
+EarlyStopping counter: 6 out of 10
+Updating learning rate to 0.0006702854908077262
+3714
+3714
+3714
+	iters: 100, epoch: 20 | loss: 0.0922689
+	speed: 2.3219s/iter; left time: 2656.2479s
+Epoch: 20 cost time: 150.9591257572174
+579
+579
+579
+1109
+Epoch: 20, Steps: 113 | Train Loss: 0.1009923 Vali Loss: 0.3448405 Test Loss: 0.3963870
+EarlyStopping counter: 7 out of 10
+Updating learning rate to 0.0005860651042479352
+3714
+3714
+3714
+	iters: 100, epoch: 21 | loss: 0.1041282
+	speed: 2.4260s/iter; left time: 2501.2056s
+Epoch: 21 cost time: 158.67754912376404
+579
+579
+579
+1109
+Epoch: 21, Steps: 113 | Train Loss: 0.1000987 Vali Loss: 0.3357735 Test Loss: 0.4056987
+EarlyStopping counter: 8 out of 10
+Updating learning rate to 0.0004992297338156031
+3714
+3714
+3714
+	iters: 100, epoch: 22 | loss: 0.0878760
+	speed: 2.5463s/iter; left time: 2337.5442s
+Epoch: 22 cost time: 166.78328442573547
+579
+579
+579
+1109
+Epoch: 22, Steps: 113 | Train Loss: 0.0992952 Vali Loss: 0.3307031 Test Loss: 0.3983892
+EarlyStopping counter: 9 out of 10
+Updating learning rate to 0.0004124178283004983
+3714
+3714
+3714
+	iters: 100, epoch: 23 | loss: 0.0942599
+	speed: 2.7035s/iter; left time: 2176.3192s
+Epoch: 23 cost time: 175.40711569786072
+579
+579
+579
+1109
+Epoch: 23, Steps: 113 | Train Loss: 0.0966040 Vali Loss: 0.3391655 Test Loss: 0.4073566
+EarlyStopping counter: 10 out of 10
+Early stopping
+>>>>>>>testing : finance_axisbank_48_48_PathFormer_AXISBANK_ftMS_sl48_pl48_0<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+ DATA LOADED FROM DATA_LOADER 
+          date  Prev Close  Open   High  ...   VWAP  Volume      Turnover  Close
+0  03-01-2000       24.70  26.7  26.70  ...  26.70  112100  2.993070e+11  26.70
+1  04-01-2000       26.70  27.0  28.70  ...  27.24  234500  6.387280e+11  26.85
+2  05-01-2000       26.85  26.0  27.75  ...  26.24  170100  4.462980e+11  26.30
+3  06-01-2000       26.30  25.8  27.00  ...  26.27  102100  2.681730e+11  25.95
+4  07-01-2000       25.95  25.0  26.00  ...  25.04   62600  1.567220e+11  24.80
+
+[5 rows x 10 columns]
+after adjusting cols 
+      Prev Close   Open    High  ...    Volume      Turnover    Close
+0          24.70   26.7   26.70  ...    112100  2.993070e+11    26.70
+1          26.70   27.0   28.70  ...    234500  6.387280e+11    26.85
+2          26.85   26.0   27.75  ...    170100  4.462980e+11    26.30
+3          26.30   25.8   27.00  ...    102100  2.681730e+11    25.95
+4          25.95   25.0   26.00  ...     62600  1.567220e+11    24.80
+...          ...    ...     ...  ...       ...           ...      ...
+5301      671.35  694.0  703.80  ...  21646184  1.505120e+15  3502.25
+5302      700.45  691.1  703.90  ...  46559967  3.225830e+15  3497.75
+5303      699.55  708.0  712.50  ...  54060587  3.794630e+15  3540.75
+5304      708.15  712.0  726.90  ...  25939327  1.860920e+15  3597.00
+5305      719.40  705.0  729.85  ...  23011654  1.655360e+15  3574.50
+
+[5306 rows x 9 columns]
+after scaling the data 
+ [[-1.10482937 -1.10267923 -1.10741852 ... -0.76635311 -0.77244865
+  -1.08326001]
+ [-1.1009608  -1.10209879 -1.10360552 ... -0.68199587 -0.77000647
+  -1.08299059]
+ [-1.10067066 -1.10403359 -1.1054167  ... -0.72637991 -0.77139103
+  -1.08397847]
+ ...
+ [ 0.20052461  0.21550463  0.20005723 ... 36.41457519 26.52829757
+   5.22849448]
+ [ 0.21715948  0.22324386  0.22751079 ... 17.03359511 12.61498051
+   5.32952781]
+ [ 0.23892022  0.20970021  0.23313496 ... 15.0158629  11.13594722
+   5.28911448]]
+1109
+test 1014
+x data after scaling 
+[[-0.21370308 -0.21199093 -0.21946747 ...  4.298147    1.84899821
+   3.27697949]
+ [-0.20316121 -0.26626226 -0.21660772 ...  7.99526995  3.66648376
+   3.24734304]
+ [-0.20954436 -0.19854402 -0.17914505 ...  7.0362494   3.3896435
+   3.42156942]
+ ...
+ [ 0.20052461  0.21550463  0.20005723 ... 36.41457519 26.52829757
+   5.22849448]
+ [ 0.21715948  0.22324386  0.22751079 ... 17.03359511 12.61498051
+   5.32952781]
+ [ 0.23892022  0.20970021  0.23313496 ... 15.0158629  11.13594722
+   5.28911448]]
+len of sample data 9
+
+1109
+(992, 48, 1)
+(992, 48, 1)
+1.835779845714569
+mse:5559.9697265625, mae:49.13185501098633, rse:0.1326126754283905 ,mape : 1.835779845714569
+Inference time:  58.95547080039978
